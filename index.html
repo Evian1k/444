@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Come Back, My Love</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            color: white;
+            overflow-x: hidden;
+            text-align: center;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .night-sky,
+        .emoji-snow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(-45deg, white, transparent);
+            animation: shoot 3s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes shoot {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-600px, 600px);
+                opacity: 0;
+            }
+        }
+
+        .emoji-snow span {
+            position: absolute;
+            top: -30px;
+            font-size: 24px;
+            opacity: 0.8;
+            animation: fallEmoji linear infinite;
+        }
+
+        @keyframes fallEmoji {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .heart {
+            font-size: 3.5em;
+            animation: beat 1s infinite;
+            margin-top: 30px;
+        }
+
+        @keyframes beat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3em;
+            color: #ffb6c1;
+            margin: 10px 0 20px;
+            animation: fadeInDown 2s ease-out;
+        }
+
+        p {
+            font-size: 1.2em;
+            max-width: 700px;
+            margin: 15px auto;
+            line-height: 1.6;
+            color: #f0f0f0;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .gallery img {
+            width: 45%;
+            max-width: 400px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+        }
+
+        .soundcloud-embed {
+            margin: 30px auto 10px;
+            max-width: 800px;
+            width: 90%;
+        }
+
+        .waiting-teen {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 140px;
+            opacity: 0.6;
+            z-index: 0;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            background: #ff6b81;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            margin: 25px 0;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #e63946;
+        }
+
+        /* Hidden message card */
+        .message-card {
+            display: none;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid #ffb6c1;
+            padding: 30px;
+            max-width: 700px;
+            margin: 30px auto;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            font-size: 1.1em;
+            white-space: pre-line;
+            text-align: left;
+        }
+
+        .typing span {
+            white-space: pre-wrap;
+            display: inline;
+        }
+
+        @media (max-width: 600px) {
+            .gallery img {
+                width: 90%;
+            }
+
+            .waiting-teen {
+                width: 100px;
+            }
+
+            .btn {
+                font-size: 1em;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background & Effects -->
+    <div class="night-sky" id="sky"></div>
+    <div class="emoji-snow"></div>
+
+    <!-- Heart and Title -->
+    <div class="heart">❤️</div>
+    <h1>Come Back, My Dream Girl</h1>
+    <p>I miss you more than words can say. Please read my heart below…</p>
+
+    <!-- Photos -->
+    <div class="gallery">
+        <img src="becky1/photo1.jpg" alt="Us 1">
+        <img src="beck2/photo2.jpg" alt="Us 2">
+        <img src="becky3/photo3.jpg" alt="Us 3">
+        <img src="becky4/photo4.jpg" alt="Us 4">
+    </div>
+
+    <!-- Button -->
+    <button class="btn" onclick="revealMessage()">💌 Read My Heart</button>
+
+    <!-- Message Reveal -->
+    <div class="message-card typing" id="messageBox"></div>
+
+    <!-- Sound -->
+    <div class="soundcloud-embed">
+        <iframe width="100%" height="250" scrolling="no" frameborder="no" allow="autoplay"
+            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/511498698&color=%23a4644c&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
+        </iframe>
+    </div>
+
+    <!-- Waiting Silhouette -->
+    <img src="waiting/teen-watching.png" alt="Waiting Teen" class="waiting-teen" />
+
+    <script>
+        const sky = document.getElementById("sky");
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement("div");
+            star.className = "star";
+            star.style.left = Math.random() * 100 + "vw";
+            star.style.top = Math.random() * 100 + "vh";
+            star.style.animationDuration = (Math.random() * 2 + 1) + "s";
+            sky.appendChild(star);
+        }
+
+        for (let i = 0; i < 3; i++) {
+            const shootingStar = document.createElement("div");
+            shootingStar.className = "shooting-star";
+            shootingStar.style.top = Math.random() * 80 + "vh";
+            shootingStar.style.left = Math.random() * 100 + "vw";
+            shootingStar.style.animationDelay = (Math.random() * 20) + "s";
+            sky.appendChild(shootingStar);
+        }
+
+        const emojiSnowContainer = document.querySelector('.emoji-snow');
+        const snowEmojis = ["❤️", "💌", "✨", "🥺", "🌙", "💫", "😭"];
+        function createEmojiSnow() {
+            const emoji = document.createElement('span');
+            emoji.innerText = snowEmojis[Math.floor(Math.random() * snowEmojis.length)];
+            emoji.style.left = Math.random() * 100 + 'vw';
+            emoji.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            emoji.style.fontSize = (Math.random() * 20 + 16) + 'px';
+            emojiSnowContainer.appendChild(emoji);
+            setTimeout(() => emoji.remove(), 10000);
+        }
+        setInterval(createEmojiSnow, 600);
+
+        function revealMessage() {
+            const message = `Let me start over  please, let me try again. I’ve learned, I’ve reflected, and I realize more than ever what you mean to me.
+
+I want to show you my respect, my commitment, my willingness to fight for us. I’m not here to say perfect words or make empty promises. I’m here to say that I’m ready to put in the work because you’re worth it.
+
+In fact, I don’t think I’ve ever loved you as deeply as I do right now in this very moment. And I say this not to pressure you, but to be honest with my heart.
+
+I know I may be overwhelming you, suffocating you with my desperation and fear. But that’s only because the thought of losing you terrifies me. It’s like watching something so beautiful slowly slip through my fingers and not being able to stop it. It’s killing me.
+
+I’m on my knees here not physically, but emotionally  begging you to stay. You mean everything to me. Your love, your attention, your presence  they’re everything. And I know I’ve messed up. I know I’ve caused pain.
+
+But I will change. I will grow. I will listen really listen. I’ll do whatever it takes to heal us.
+
+Please, just give me a chance. Let me show you the kind of love you deserve. A love that’s patient, gentle, and strong. You are my world, and I can’t imagine a life where your smile isn’t part of it.
+
+Please… don’t give up on me. 💔`;
+
+            const box = document.getElementById("messageBox");
+            box.innerHTML = ""; // reset
+            box.style.display = "block";
+            let i = 0;
+            function typeLetter() {
+                if (i < message.length) {
+                    box.innerHTML += `<span>${message[i]}</span>`;
+                    i++;
+                    setTimeout(typeLetter, 25);
+                }
+            }
+            typeLetter();
+        }
+    </script>
+
+</body>
+
+</html>
